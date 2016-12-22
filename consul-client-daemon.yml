@@ -1,0 +1,38 @@
+--- 
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata: 
+  name: consul
+  namespace: kv
+spec: 
+  template: 
+    metadata: 
+      labels: 
+        app: consul
+    spec: 
+      containers: 
+        - args: 
+            - agent
+            - "-client"
+            - "0.0.0.0"
+            - "-ui"
+            - "-join"
+            - "consul-leader"
+            - "-datacenter"
+            - "global"
+          image: "consul:0.7.2"
+          imagePullPolicy: IfNotPresent
+          name: consul
+          ports:
+            - containerPort: 8600
+              name: dns-port
+            - containerPort: 8500
+              name: ui-port
+            - containerPort: 8400
+              name: cli-port
+            - containerPort: 8301
+              name: serflan
+            - containerPort: 8302
+              name: serfwan
+            - containerPort: 8300
+              name: server
