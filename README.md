@@ -5,7 +5,7 @@ this will setup `consul`  in all the nodes of the k cluster.
 ### Before install
 
 1. this only works with weave network
-2. all the cluster run over a vpn  
+2. all the cluster run over a vpn  (https://github.com/NebTex/tzk)
 
 ### Minimal requirements (3 nodes)
 
