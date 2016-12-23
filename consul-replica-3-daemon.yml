@@ -30,10 +30,10 @@ spec:
               }
     spec:
       volumes:
-        - name: consul-data
+        - name: master-data
           hostPath:
             # directory location on host
-            path: /data/consul
+            path: /data
       containers:
         - args:
             - "agent"
@@ -51,14 +51,16 @@ spec:
             - "/data/consul"
             - "-node"
             - "replica-3"
+            - "-config-file"
+            - "/data/conf/consul.json"
           image: "consul:0.7.2"
           imagePullPolicy: IfNotPresent
           name: consul-replica-3
           securityContext:
             privileged: true
           volumeMounts:
-            - mountPath: /data/consul
-              name: consul-data
+            - mountPath: /data
+              name: master-data
           ports:
             - containerPort: 8600
               name: dns-port
