@@ -49,8 +49,8 @@ spec:
             - "/data/consul"
             - "-node"
             - "leader"
-            - "-config-file"
-            - "/data/conf/consul.json"
+            - "-config-dir"
+            - "/data/conf"
           image: "consul:0.7.2"
           imagePullPolicy: IfNotPresent
           name: consul-leader

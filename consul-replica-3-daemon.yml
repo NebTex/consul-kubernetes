@@ -51,8 +51,8 @@ spec:
             - "/data/consul"
             - "-node"
             - "replica-3"
-            - "-config-file"
-            - "/data/conf/consul.json"
+            - "-config-dir"
+            - "/data/conf"
           image: "consul:0.7.2"
           imagePullPolicy: IfNotPresent
           name: consul-replica-3
