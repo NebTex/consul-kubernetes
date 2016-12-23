@@ -24,6 +24,8 @@ spec:
             - "consul-leader"
             - "-datacenter"
             - "global"
+            - "-config-dir"
+            - "/data/conf"
           image: "consul:0.7.2"
           imagePullPolicy: IfNotPresent
           name: consul
