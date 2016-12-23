@@ -1,4 +1,4 @@
-# Consul DaemonSet for Kubernetes 
+# Consul DaemonSet for Kubernetes (only for private networks under you control)
 
 this will setup `consul`  in all the nodes of the k cluster.
 
