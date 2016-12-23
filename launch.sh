@@ -15,5 +15,6 @@ kubectl apply -f consul-replica-3-service.yml --validate --overwrite
 # ===================
 #      Clients
 # ===================
+kubectl  apply -f consul-client-config.yml --validate --overwrite
 kubectl  apply -f consul-client-daemon.yml --validate --overwrite
-kubectl apply -f consul-client-service.yml --validate --overwrite
+kubectl  apply -f consul-client-service.yml --validate --overwrite

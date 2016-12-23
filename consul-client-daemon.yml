@@ -9,7 +9,11 @@ spec:
     metadata: 
       labels: 
         app: consul
-    spec: 
+    spec:
+      volumes:
+        - name: config-volume
+          configMap:
+            name: consul-client-config
       containers: 
         - args: 
             - agent
@@ -23,6 +27,9 @@ spec:
           image: "consul:0.7.2"
           imagePullPolicy: IfNotPresent
           name: consul
+          volumeMounts:
+            - name: config-volume
+              mountPath: /data/conf
           ports:
             - containerPort: 8600
               name: dns-port
