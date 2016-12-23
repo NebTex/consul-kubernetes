@@ -1,9 +1,16 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: consul-client-config
+  name: consul-config
   namespace: kv
 data:
   consul.json: |
     {"acl_datacenter": "global",
+     "acl_default_policy": "deny",
+     "acl_down_policy": "extend-cache",
+     "acl_master_token":"97038700-e57a-4793-9ff0-cdcec3d694a4",
+     "acl_replication_token": "8e4598fd-92bd-44e5-af5c-f695d125e3f4",
+     "acl_agent_master_token": "0d0e3cdc-e58c-4fa5-9e62-de456c24a0c6",
+     "acl_agent_token": "76aeae04-4991-48a4-a853-3a9ad62ab996",
+     "acl_token": "6d0250a2-3cdf-45d7-9350-ebd9c4ba72c8",
      "acl_enforce_version_8": true}

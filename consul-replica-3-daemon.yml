@@ -30,10 +30,13 @@ spec:
               }
     spec:
       volumes:
+        - name: config-volume
+          configMap:
+            name: consul-client-config
         - name: master-data
           hostPath:
             # directory location on host
-            path: /data
+            path: /data/consul
       containers:
         - args:
             - "agent"
@@ -59,7 +62,9 @@ spec:
           securityContext:
             privileged: true
           volumeMounts:
-            - mountPath: /data
+            - name: config-volume
+              mountPath: /data/conf
+            - mountPath: /data/consul
               name: master-data
           ports:
             - containerPort: 8600
