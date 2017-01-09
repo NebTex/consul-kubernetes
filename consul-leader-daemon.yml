@@ -34,6 +34,10 @@ spec:
           secret:
             secretName: consul-secrets
             defaultMode: 0777
+            items:
+              - key: consul.json
+                path: consul.json
+                mode: 0777
         - name: master-data
           hostPath:
             # directory location on host
