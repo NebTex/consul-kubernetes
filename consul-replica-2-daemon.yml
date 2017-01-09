@@ -31,8 +31,8 @@ spec:
     spec:
       volumes:
         - name: config-volume
-          configMap:
-            name: consul-client-config
+          secret:
+            secretName: consul-secrets
         - name: master-data
           hostPath:
             # directory location on host

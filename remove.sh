@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 # ====================
 #       Leader
 # ====================
@@ -16,4 +17,3 @@ kubectl delete -f consul-replica-3-service.yml
 # ===================
 kubectl delete -f consul-client-daemon.yml
 kubectl delete -f consul-client-service.yml
-kubectl delete -f consul-client-config.yml

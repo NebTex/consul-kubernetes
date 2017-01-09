@@ -22,6 +22,7 @@ this will setup `consul`  in all the nodes of the k cluster.
 4. after this an instance of consul in client mode will be present in each node of the k cluster even the master ones
 5. the consul client cluster connect to the master using the `consul-leader` dns entry
 6. then create another service for the consul client with the dns entry `consul`
+7. it will generate all the acl tokens and store them in consul-secrets, they need to be removed manually in case in which you want to delete or change them
 
 ### Usage
 
@@ -30,7 +31,6 @@ run the `launch.sh` on the kube master, this will create or update the installat
 ### Remove
 
 just run `remove.sh` on master
-
 
 ## Licence
 
