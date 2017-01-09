@@ -33,6 +33,7 @@ spec:
         - name: config-volume
           secret:
             secretName: consul-secrets
+            defaultMode: 0777
         - name: master-data
           hostPath:
             # directory location on host

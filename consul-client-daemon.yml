@@ -14,6 +14,7 @@ spec:
         - name: config-volume
           secret:
             secretName: consul-secrets
+            defaultMode: 0777
       containers: 
         - args: 
             - agent
