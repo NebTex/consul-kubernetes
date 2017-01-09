@@ -45,8 +45,8 @@ spec:
         - args:
             - "consul"
             - "agent"
-            - "data-dir=/consul/data"
-            - "config-dir=/data/config"
+            - "-data-dir=/consul/data"
+            - "-config-dir=/data/config"
             - "-server"
             - "-bootstrap-expect"
             - "3"
