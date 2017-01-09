@@ -33,7 +33,6 @@ spec:
         - name: config-volume
           secret:
             secretName: consul-secrets
-            defaultMode: 0777
             items:
               - key: consul.json
                 path: consul.json
@@ -44,7 +43,10 @@ spec:
             path: /data/consul
       containers: 
         - args:
+            - "consul"
             - "agent"
+            - "data-dir=/consul/data"
+            - "config-dir=/consul/config"
             - "-server"
             - "-bootstrap-expect"
             - "3"
