@@ -24,14 +24,12 @@ spec:
             - "consul-leader"
             - "-datacenter"
             - "global"
-            - "-config-dir"
-            - "/data/conf"
           image: "consul:0.7.2"
           imagePullPolicy: IfNotPresent
           name: consul
           volumeMounts:
             - name: config-volume
-              mountPath: /data/conf
+              mountPath: /consul/config
           ports:
             - containerPort: 8600
               name: dns-port

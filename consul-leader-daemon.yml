@@ -48,12 +48,8 @@ spec:
             - "-ui"
             - "-client"
             - "0.0.0.0"
-            - "-data-dir"
-            - "/data/consul"
             - "-node"
             - "leader"
-            - "-config-dir"
-            - "/data/conf"
           image: "consul:0.7.2"
           imagePullPolicy: IfNotPresent
           name: consul-leader
@@ -61,8 +57,8 @@ spec:
             privileged: true
           volumeMounts:
             - name: config-volume
-              mountPath: /data/conf
-            - mountPath: /data/consul
+              mountPath: /consul/config
+            - mountPath: /consul/data
               name: master-data
           ports:
             - containerPort: 8600

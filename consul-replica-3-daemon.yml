@@ -50,12 +50,8 @@ spec:
             - "0.0.0.0"
             - "-retry-join"
             - "consul-leader"
-            - "-data-dir"
-            - "/data/consul"
             - "-node"
             - "replica-3"
-            - "-config-dir"
-            - "/data/conf"
           image: "consul:0.7.2"
           imagePullPolicy: IfNotPresent
           name: consul-replica-3
@@ -63,8 +59,8 @@ spec:
             privileged: true
           volumeMounts:
             - name: config-volume
-              mountPath: /data/conf
-            - mountPath: /data/consul
+              mountPath: /consul/config
+            - mountPath: /consul/data
               name: master-data
           ports:
             - containerPort: 8600
