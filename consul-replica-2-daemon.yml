@@ -39,8 +39,11 @@ spec:
             # directory location on host
             path: /data/consul
       containers: 
-        - args: 
+        - args:
+            - "consul"
             - "agent"
+            - "data-dir=/consul/data"
+            - "config-dir=/data/config"
             - "-server"
             - "-bootstrap-expect"
             - "3"
@@ -58,7 +61,7 @@ spec:
           name: consul-replica-2
           volumeMounts:
             - name: config-volume
-              mountPath: /consul/config
+              mountPath: /data/config
             - mountPath: /consul/data
               name: master-data
           ports:

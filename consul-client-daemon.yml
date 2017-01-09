@@ -16,8 +16,11 @@ spec:
             secretName: consul-secrets
             defaultMode: 0777
       containers: 
-        - args: 
-            - agent
+        - args:
+            - "consul"
+            - "agent"
+            - "data-dir=/consul/data"
+            - "config-dir=/data/config"
             - "-client"
             - "0.0.0.0"
             - "-ui"
@@ -30,7 +33,7 @@ spec:
           name: consul
           volumeMounts:
             - name: config-volume
-              mountPath: /consul/config
+              mountPath: /data/config
           ports:
             - containerPort: 8600
               name: dns-port

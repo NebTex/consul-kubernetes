@@ -46,7 +46,7 @@ spec:
             - "consul"
             - "agent"
             - "data-dir=/consul/data"
-            - "config-dir=/consul/config"
+            - "config-dir=/data/config"
             - "-server"
             - "-bootstrap-expect"
             - "3"
@@ -62,7 +62,7 @@ spec:
           name: consul-leader
           volumeMounts:
             - name: config-volume
-              mountPath: /consul/config
+              mountPath: /data/config
             - mountPath: /consul/data
               name: master-data
           ports:
