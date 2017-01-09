@@ -56,8 +56,6 @@ spec:
           image: "consul:0.7.2"
           imagePullPolicy: IfNotPresent
           name: consul-replica-2
-          securityContext:
-            privileged: true
           volumeMounts:
             - name: config-volume
               mountPath: /consul/config
