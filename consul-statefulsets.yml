@@ -1,43 +1,65 @@
---- 
-apiVersion: extensions/v1beta1
-kind: DaemonSet
-metadata: 
-  name: consul-replica-3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: consul 
   namespace: kv
-spec: 
+  labels:
+    app: consul
+spec:
+  clusterIP: None
+  ports:
+    # the port that this service should serve on
+    - name: dns
+      port: 8600
+    - name: http
+      port: 8500
+    - name: rpc
+      port: 8400
+    - name: serflan
+      port: 8301
+    - name: serfwan
+      port: 8302
+    - name: server
+      port: 8300
+  # label keys and values that must match in order to receive traffic for this service
+  selector:
+    app: consul
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: consul
+  namespace: kv
+spec:
+  serviceName: consul
+  replicas: 5
   template: 
     metadata: 
       labels: 
-        app: consul-replica-3
+        app: consul
       annotations: 
           scheduler.alpha.kubernetes.io/affinity: >
               {
-                "nodeAffinity": {
-                    "requiredDuringSchedulingIgnoredDuringExecution": {
-                      "nodeSelectorTerms": [
-                        {
-                          "matchExpressions": [
-                            {
-                              "key": "kv-store-replica-3",
-                              "operator": "In",
-                              "values": ["yes"]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  }
+              "podAntiAffinity": {
+                "requiredDuringSchedulingIgnoredDuringExecution": [{
+                  "labelSelector": {
+                    "matchExpressions": [{
+                      "key": "app",
+                      "operator": "In",
+                      "values": ["consul"]
+                    }]
+                  },
+                  "topologyKey": "kubernetes.io/hostname"
+                }]
               }
+            }
     spec:
       volumes:
         - name: config-volume
           secret:
             secretName: consul-secrets
             defaultMode: 0777
-        - name: master-data
-          hostPath:
-            # directory location on host
-            path: /data/consul
       containers:
         - args:
             - "consul"
@@ -45,8 +67,6 @@ spec:
             - "-data-dir=/consul/data"
             - "-config-dir=/data/config"
             - "-server"
-            - "-bootstrap-expect"
-            - "3"
             - "-datacenter"
             - "global"
             - "-ui"
@@ -54,16 +74,12 @@ spec:
             - "0.0.0.0"
             - "-retry-join"
             - "consul-leader"
-            - "-node"
-            - "replica-3"
           image: "consul:0.7.2"
           imagePullPolicy: IfNotPresent
-          name: consul-replica-3
+          name: consul-replica
           volumeMounts:
             - name: config-volume
               mountPath: /data/config
-            - mountPath: /consul/data
-              name: master-data
           ports:
             - containerPort: 8600
               name: dns-port

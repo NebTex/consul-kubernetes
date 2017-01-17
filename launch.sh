@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# download sigil
-curl -fsSL https://github.com/gliderlabs/sigil/releases/download/v0.4.0/sigil_0.4.0_Linux_x86_64.tgz | tar -zxC /tmp
-
 if kubectl get secrets --namespace kv | grep -q "consul-secrets"; then
     echo "Secrets already exists"
 else
@@ -23,13 +20,4 @@ kubectl apply -f consul-leader-service.yml --validate --overwrite
 #       Replicas
 # ====================
 
-kubectl apply -f consul-replica-2-daemon.yml --validate --overwrite
-kubectl apply -f consul-replica-2-service.yml --validate --overwrite
-kubectl apply -f consul-replica-3-daemon.yml --validate --overwrite
-kubectl apply -f consul-replica-3-service.yml --validate --overwrite
-
-# ===================
-#      Clients
-# ===================
-kubectl  apply -f consul-client-daemon.yml --validate --overwrite
-kubectl  apply -f consul-client-service.yml --validate --overwrite
+kubectl apply -f consul-statefulsets.yml --validate --overwrite
