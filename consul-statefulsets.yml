@@ -6,7 +6,7 @@ metadata:
   namespace: kv
 spec:
   serviceName: consul
-  replicas: 5
+  replicas: 6
   template: 
     metadata: 
       labels: 
@@ -53,7 +53,7 @@ spec:
             - "0.0.0.0"
             - "-retry-join"
             - "consul-leader"
-          image: "consul:0.7.2"
+          image: "consul:0.7.3"
           imagePullPolicy: IfNotPresent
           name: consul-replica
           volumeMounts:
