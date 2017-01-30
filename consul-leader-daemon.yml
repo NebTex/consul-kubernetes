@@ -12,7 +12,7 @@ spec:
         app: consul-leader
       annotations: 
         pod.beta.kubernetes.io/init-containers: '[
-                {
+              {
                 "name": "backup-restore",
                 "args": ["restore"],
                 "image": "nebtex/backups",
@@ -34,15 +34,6 @@ spec:
                   {
                     "name": "POD_NAME",
                     "value": "consul-leader"
-                  },
-                  {
-                    "name": "AWS_BUCKET",
-                    "valueFrom": {
-                      "secretKeyRef": {
-                        "name": "consul-backup-credentials",
-                        "key": "AWS_BUCKET"
-                      }
-                    }
                   },
                   {
                     "name": "AWS_BUCKET",
@@ -93,11 +84,15 @@ spec:
                 "volumeMounts": [
                     {
                     "name": "consul-data",
-                    "mountPath": "/vulumes/consul/data"
+                    "mountPath": "/volumes/consul/data"
                     },
                     {
                     "name": "config-volume",
-                    "mountPath": "/vulumes/consul/config"
+                    "mountPath": "/volumes/consul/config"
+                    },
+                     {
+                      "name": "borg",
+                      "mountPath": "/borg"
                     }
                 ]
                 }
@@ -113,6 +108,10 @@ spec:
                 mode: 0777
         - name: consul-data
           emptyDir: {}
+        - name: consul-data
+          emptyDir: {}
+        - name: borg
+          emptyDir: {}
       containers: 
         - name: backups
           args:
@@ -120,6 +119,13 @@ spec:
           - 0 * * * *
           image: nebtex/backups
           imagePullPolicy: Always
+          volumeMounts:
+            - name: config-volume
+              mountPath: /volumes/consul/config
+            - name: consul-data
+              mountPath: /volumes/consul/data
+            - name: borg
+              mountPath: /borg
           env:
           - name: APP_NAME
             value: consul

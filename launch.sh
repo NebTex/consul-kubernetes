@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -e
 
-AWS_BUCKET=`cat ${VAULT_BACKUP} | jq .AWS_BUCKET -r | base64 -w 0`
-AWS_REGION=`cat ${VAULT_BACKUP} | jq .AWS_REGION -r | base64 -w 0`
-AWS_ACCESS_KEY_ID=`cat ${VAULT_BACKUP} | jq .AWS_ACCESS_KEY_ID -r | base64 -w 0`
-AWS_SECRET_ACCESS_KEY=`cat ${VAULT_BACKUP} | jq .AWS_SECRET_ACCESS_KEY -r | base64 -w 0`
-BORG_PASSPHRASE=`cat ${VAULT_BACKUP}| jq .BORG_PASSPHRASE -r | base64 -w 0`
+AWS_BUCKET=`cat ${VAULT_BACKUP} | jq .AWS_BUCKET -r | tr -d '\n' | base64 -w 0`
+AWS_REGION=`cat ${VAULT_BACKUP} | jq .AWS_REGION -r | tr -d '\n' | base64 -w 0`
+AWS_ACCESS_KEY_ID=`cat ${VAULT_BACKUP} | jq .AWS_ACCESS_KEY_ID -r -c| tr -d '\n' | base64 -w 0`
+AWS_SECRET_ACCESS_KEY=`cat ${VAULT_BACKUP} | jq .AWS_SECRET_ACCESS_KEY -r | tr -d '\n' | base64 -w 0`
+BORG_PASSPHRASE=`cat ${VAULT_BACKUP}| jq .BORG_PASSPHRASE -r | tr -d '\n' | base64 -w 0`
 
 if kubectl get secrets --namespace kv | grep -q "consul-secrets"; then
     echo "Secrets already exists"
