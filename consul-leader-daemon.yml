@@ -108,8 +108,6 @@ spec:
                 mode: 0777
         - name: consul-data
           emptyDir: {}
-        - name: consul-data
-          emptyDir: {}
         - name: borg
           emptyDir: {}
       containers: 
