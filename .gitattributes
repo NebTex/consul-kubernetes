@@ -1,0 +1,2 @@
+#pattern  filter=crypt diff=crypt
+vault.json  filter=crypt diff=crypt

@@ -1,19 +1,20 @@
 --- 
 apiVersion: extensions/v1beta1
-kind: DaemonSet
+kind: Deployment
 metadata: 
   name: consul-leader
   namespace: kv
 spec: 
+  replicas: 1
   template: 
     metadata: 
       labels: 
         app: consul-leader
       annotations: 
-        pod.beta.kubernetes.io/init-containers: >
-            [
+        pod.beta.kubernetes.io/init-containers: '[
                 {
                 "name": "backup-restore",
+                "args": ["restore"],
                 "image": "nebtex/backups",
                 "imagePullPolicy": "Always",
                 "env": [
@@ -25,7 +26,8 @@ spec:
                     "name": "NAMESPACE",
                     "valueFrom": {
                       "fieldRef": {
-                        "fieldPath": "metadata.namespace"
+                        "fieldPath": "metadata.namespace",
+                        "apiVersion": "v1"
                       }
                     }
                   },
@@ -99,7 +101,7 @@ spec:
                     }
                 ]
                 }
-            ]
+            ]'
     spec:
       volumes:
         - name: config-volume
@@ -178,7 +180,7 @@ spec:
             - name: config-volume
               mountPath: /data/config
             - mountPath: /consul/data
-              name: master-data
+              name: consul-data
           ports:
             - containerPort: 8600
               name: dns-port
