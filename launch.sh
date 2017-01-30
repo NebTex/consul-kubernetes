@@ -32,5 +32,5 @@ kubectl apply -f consul-leader-service.yml --validate --overwrite
 #       Replicas
 # ====================
 
-#kubectl apply -f consul-statefulsets.yml --validate --overwrite
-#kubectl apply -f consul-service.yml --validate --overwrite
+kubectl apply -f consul-statefulsets.yml --validate --overwrite
+kubectl apply -f consul-service.yml --validate --overwrite
