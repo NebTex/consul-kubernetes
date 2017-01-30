@@ -140,11 +140,6 @@ spec:
               secretKeyRef:
                 name: consul-backup-credentials
                 key: AWS_BUCKET
-          - name: AWS_BUCKET
-            valueFrom:
-              secretKeyRef:
-                name: consul-backup-credentials
-                key: AWS_BUCKET
           - name: AWS_REGION
             valueFrom:
               secretKeyRef:
